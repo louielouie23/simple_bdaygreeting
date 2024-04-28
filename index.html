@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy 18th Birthday!</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden; /* Prevent balloons from overflowing the viewport */
+    }
+    .container {
+      text-align: center;
+      position: relative; 
+      margin-bottom: 200px; /* Position relative for absolute positioning of balloons */
+    }
+    h1 {
+      color: #333;
+      font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+      /* add a text shadow */
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+      overflow: hidden; /* Prevent the cursor from being visible */
+      white-space: nowrap; /* Keep text on one line */
+      animation: typing 3s steps(40, end), blink-caret 0.75s step-end infinite;
+    }
+    @keyframes typing {
+      from {
+        width: 0;
+      }
+      to {
+        width: 100%;
+      }
+    }
+    /* Blinking cursor animation */
+    @keyframes blink-caret {
+      from, to {
+        border-color: transparent;
+      }
+      50% {
+        border-color: black;
+      }
+    }
+    p {
+      font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+      /* add a text shadow */
+    }
+    #heart {
+      font-size: 50px;
+      color: red;
+      animation: heartbeat 1s infinite alternate;
+    }
+    @keyframes heartbeat {
+      from {
+        transform: scale(1);
+      }
+      to {
+        transform: scale(1.2);
+      }
+    }
+    .balloon {
+      position: absolute;
+      animation: balloonAnim 16s linear infinite alternate; /* Adjust animation duration */
+    }
+    @keyframes balloonAnim {
+      from {
+        transform: translateY(0) rotate(0);
+      }
+      to {
+        transform: translateY(-120vh) rotate(360deg); /* Increase translateY for slower ascent */
+      }
+    }
+
+    .bear {
+      position: absolute;
+      animation: bearAnim 16s linear infinite alternate; /* Adjust animation duration */
+    }
+
+    @keyframes bearAnim {
+      from {
+        transform: translateY(0) rotate(0); /* Start from bottommost part */
+      }
+      to {
+        transform: translateY(-120vh) rotate(360deg); /* Increase translateY for slower ascent */
+      }
+    }
+
+    .gift-container {
+      position: relative;
+      margin-top: 50px;
+      cursor: pointer;
+    }
+    .gift-box {
+      width: 150px;
+      height: 150px;
+      background-color: #e6e6e6;
+      border: 2px solid #ccc;
+      border-radius: 10px;
+      position: relative;
+    }
+    .gift-lid {
+      width: 100%;
+      height: 50%;
+      background-color: #e6e6e6;
+      position: absolute;
+      top: 0;
+      left: 0;
+      border-top-left-radius: 8px;
+      border-top-right-radius: 8px;
+      transform-origin: top;
+      transition: transform 0.5s ease;
+    }
+    .gift-container.open .gift-lid {
+      transform: rotateX(-90deg);
+    }
+
+    .birthday-button {
+  background-color: #ff69b4; /* Pink color */
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.birthday-button:hover {
+  background-color: #ff1493; /* Darker pink color on hover */
+}
+/* Add a keyframe animation for the pop-up effect */
+@keyframes pop-up {
+  0% {
+    transform: scale(0.8);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Apply the pop-up animation to the button after typing animation finishes */
+#popup-button {
+  animation: pop-up 3s infinite alternate ease forwards ;
+}
+
+/* Styles for the pop-up box */
+.popup {
+  display: none; /* Initially hidden */
+  position: fixed; 
+  z-index: 1; 
+  left: 0;
+  top: 0;
+  width: 100%; 
+  height: 100%; 
+  overflow: auto; 
+  background-color: rgba(0,0,0,0.5); /* Black background with opacity */
+}
+
+.popup-content {
+  background-color: #fefefe;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+}
+
+/* Close button style */
+.close {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+
+  </style>
+</head>
+<body>
+<div class="container">
+  <!-- this message will show when the click me button is clicked -->
+  <div class="messageshow"> 
+    <img src="aubrey.jpg" alt="" srcset="" style="text-shadow: #333;">
+    <h1 id="line1">Happy 18th Birthday!</h1>
+    <img src="bdaycake.png" alt="" srcset=""> <br><br>
+    <button id="popup-button" onclick="startBalloons()" 
+    class="birthday-button">Click Me</button>
+
+  </div>
+  <div class="popup" id="popup">
+    <div class="popup-content">
+      <span class="close" onclick="closePopup()">&times;</span>
+      <p>I Labyu</p>
+    </div>
+  </div>
+  
+</div>
+
+<div id="balloon-container"></div>
+<div id="balloon-container2"></div>
+<div id="balloon-container3"></div>
+<div id="balloon-container4"></div>
+<div id="balloon-container5"></div>
+<div id="balloon-container6"></div>
+
+
+<script>
+// Function to open the pop-up box
+function openPopup() {
+  document.getElementById('popup').style.display = 'block';
+}
+
+// Function to close the pop-up box
+function closePopup() {
+  document.getElementById('popup').style.display = 'none';
+}
+
+    // Get the button element
+const popupButton = document.getElementById('popup-button');
+
+// Function to add pop-up animation after typing animation finishes
+function addPopUpAnimation() {
+  popupButton.classList.add('pop-up-animation');
+}
+
+// Add event listener to trigger the pop-up animation after typing animation finishes
+document.getElementById('line1').addEventListener('animationend', addPopUpAnimation);
+
+  function createBear() {
+    const bear = document.createElement('img');
+    bear.src = 'teddyb.png';
+    bear.classList.add('bear'); 
+    bear.style.bottom = '0';
+    bear.style.left = Math.random() * window.innerWidth + 'px'; 
+    document.getElementById('balloon-container6').appendChild(bear);
+
+    setTimeout(function() {
+      bear.remove(); 
+    }, 15000); 
+  }
+
+  setInterval(createBear, 6000); 
+
+  function createBalloon(containerId, imageUrl) {
+    const balloon = document.createElement('img');
+    balloon.src = imageUrl;
+    balloon.classList.add('balloon');
+    balloon.style.bottom = '0'; // Set initial position to the bottom of the screen
+    balloon.style.left = Math.random() * window.innerWidth + 'px';
+    document.getElementById(containerId).appendChild(balloon);
+    setTimeout(function() {
+      balloon.remove(); 
+    }, 12000); 
+  }
+
+  function startBalloons() {
+    setInterval(() => {
+      createBalloon('balloon-container', 'balloon.png');
+      createBalloon('balloon-container2', 'balloon2.png');
+      createBalloon('balloon-container3', 'balloonsm.png');
+      createBalloon('balloon-container4', 'balloon4.png');
+      createBalloon('balloon-container5', 'balloon5.png');
+    }, 10000);
+  }
+</script>
+</body>
+</html>
